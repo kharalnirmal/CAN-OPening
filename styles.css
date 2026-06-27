@@ -43,8 +43,10 @@ body {
 .lighting-scene {
   display: grid;
   place-items: center;
-  background: #000;
+  background: radial-gradient(circle at 50% 60%, rgba(35, 15, 5, 0.45) 0%, rgba(10, 4, 1, 0.9) 55%, #000 100%),
+              linear-gradient(to bottom, #050201, #000);
   transition: opacity 1200ms ease;
+  position: relative;
 }
 
 .experience.is-revealed .lighting-scene {
@@ -52,8 +54,93 @@ body {
   pointer-events: none;
 }
 
+.scene-background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+}
+
+.radial-glow-back {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(85vw, 75vh);
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(255, 122, 26, 0.12) 0%, rgba(255, 92, 20, 0.03) 45%, transparent 70%);
+  filter: blur(12px);
+  animation: glowFlicker 600ms ease-in-out infinite alternate;
+}
+
+.mandala-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(82vw, 78vh);
+  height: min(82vw, 78vh);
+  opacity: 0.12;
+  pointer-events: none;
+  animation: 
+    spinMandala 140s linear infinite,
+    mandalaFlicker 800ms ease-in-out infinite alternate;
+  transform-origin: center center;
+}
+
+.sparks {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.spark {
+  position: absolute;
+  bottom: -20px;
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.sparks-bg .spark {
+  background: radial-gradient(circle, #ffba62 30%, rgba(255, 122, 26, 0.8) 70%, transparent 100%);
+  box-shadow: 0 0 4px rgba(255, 122, 26, 0.6);
+  filter: blur(0.3px);
+  animation: floatUpRealistic 14s infinite linear;
+}
+.spark-bg-1 { left: 8%; width: 3px; height: 3px; animation-duration: 15s; animation-delay: 0.5s; }
+.spark-bg-2 { left: 24%; width: 4px; height: 4px; animation-duration: 18s; animation-delay: 4.5s; }
+.spark-bg-3 { left: 68%; width: 3px; height: 3px; animation-duration: 13s; animation-delay: 2s; }
+.spark-bg-4 { left: 85%; width: 4px; height: 4px; animation-duration: 16s; animation-delay: 7s; }
+
+.sparks-mid .spark {
+  background: radial-gradient(circle, #fff 10%, #ffba62 40%, rgba(255, 122, 26, 0.9) 80%, transparent 100%);
+  box-shadow: 0 0 6px rgba(255, 122, 26, 0.9), 0 0 12px rgba(255, 186, 98, 0.4);
+  filter: blur(0.6px);
+  animation: floatUpRealistic 9.5s infinite linear;
+}
+.spark-mid-1 { left: 16%; width: 5px; height: 5px; animation-duration: 10s; animation-delay: 1.2s; }
+.spark-mid-2 { left: 40%; width: 6px; height: 6px; animation-duration: 11.5s; animation-delay: 3s; }
+.spark-mid-3 { left: 55%; width: 5px; height: 5px; animation-duration: 8.5s; animation-delay: 5.5s; }
+.spark-mid-4 { left: 76%; width: 6px; height: 6px; animation-duration: 10.5s; animation-delay: 0.2s; }
+
+.sparks-fg .spark {
+  background: radial-gradient(circle, #fff 5%, #ffba62 30%, rgba(255, 92, 20, 0.8) 75%, transparent 100%);
+  box-shadow: 0 0 10px rgba(255, 92, 20, 0.8), 0 0 20px rgba(255, 186, 98, 0.3);
+  filter: blur(3.5px);
+  animation: floatUpRealistic 6.5s infinite linear;
+}
+.spark-fg-1 { left: 10%; width: 10px; height: 10px; animation-duration: 6.8s; animation-delay: 2.5s; }
+.spark-fg-2 { left: 48%; width: 12px; height: 12px; animation-duration: 5.5s; animation-delay: 0.8s; }
+.spark-fg-3 { left: 82%; width: 9px; height: 9px; animation-duration: 7.2s; animation-delay: 4.2s; }
+
 .panas-stage {
   position: relative;
+  z-index: 2;
   display: grid;
   place-items: end center;
   width: min(31rem, 86vw);
@@ -506,6 +593,89 @@ body {
 @keyframes closeCurtainRight {
   to {
     transform: translateX(0);
+  }
+}
+
+@keyframes spinMandala {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes glowFlicker {
+  0%, 100% {
+    opacity: 0.65;
+    transform: translate(-50%, -50%) scale(0.96) skewX(-0.5deg);
+    filter: blur(12px) brightness(0.92);
+  }
+  25% {
+    opacity: 0.88;
+    transform: translate(-49.5%, -50.5%) scale(1.03) skewX(0.5deg);
+    filter: blur(10px) brightness(1.08);
+  }
+  50% {
+    opacity: 0.72;
+    transform: translate(-50.5%, -49.5%) scale(0.98) skewX(-1deg);
+    filter: blur(11px) brightness(0.97);
+  }
+  75% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.05) skewX(1deg);
+    filter: blur(9px) brightness(1.15);
+  }
+}
+
+@keyframes mandalaFlicker {
+  0%, 100% {
+    opacity: 0.08;
+    filter: brightness(0.9);
+  }
+  30% {
+    opacity: 0.16;
+    filter: brightness(1.15);
+  }
+  70% {
+    opacity: 0.11;
+    filter: brightness(0.95);
+  }
+  90% {
+    opacity: 0.18;
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes floatUpRealistic {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.6);
+    opacity: 0;
+    /* White-hot starting temperature */
+    background: radial-gradient(circle, #ffffff 30%, #ffba62 70%, transparent 100%);
+  }
+  8% {
+    opacity: 1;
+  }
+  35% {
+    /* Cooling to golden amber */
+    background: radial-gradient(circle, #ffba62 30%, #ff7a1a 75%, transparent 100%);
+    transform: translateY(-35vh) translateX(35px) scale(1.1);
+  }
+  65% {
+    /* Cooling to warm orange-red */
+    background: radial-gradient(circle, #ff7a1a 20%, #ff3b00 70%, transparent 100%);
+    transform: translateY(-70vh) translateX(-25px) scale(0.95);
+    opacity: 0.7;
+  }
+  88% {
+    /* Fading to dim ember crimson */
+    background: radial-gradient(circle, #5e1500 20%, transparent 80%);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(15px) scale(0.55);
+    opacity: 0;
   }
 }
 
