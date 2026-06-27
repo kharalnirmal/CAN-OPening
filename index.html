@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nyxen</title>
-    <link rel="stylesheet" href="styles.css?v=cinematic20" />
+    <link rel="stylesheet" href="styles.css?v=cinematic23" />
   </head>
   <body>
     <main class="experience" aria-live="polite">
@@ -14,8 +14,7 @@
       >
         <div class="panas-stage">
           <div class="top-glow" aria-hidden="true"></div>
-          <div class="heat-haze" aria-hidden="true"></div>
-          <div class="ember-layer" id="emberLayer" aria-hidden="true"></div>
+          <div class="heat-shimmer" aria-hidden="true"></div>
           <div class="flame-stack" aria-hidden="true">
             <span class="flame flame-outer"></span>
             <span class="flame flame-mid"></span>
@@ -26,12 +25,13 @@
             class="panas-image"
             src="panas-main.png"
             alt="Traditional Nepali Panas ceremonial lamp"
+            decoding="async"
+            fetchpriority="high"
           />
         </div>
       </section>
 
       <section class="event-screen" aria-label="Opening visuals">
-        <div class="event-aurora" aria-hidden="true"></div>
         <div class="curtain-left curtain" aria-hidden="true"></div>
         <div class="curtain-right curtain" aria-hidden="true"></div>
         <div
@@ -44,24 +44,43 @@
         ></div>
         <div class="full-visual">
           <img
-            class="sequence-image is-active"
+            class="sequence-image"
             id="sequenceImage"
-            src="can image 0.jpg"
-            alt="CAN presentation visual"
+            src=""
+            alt=""
+            decoding="async"
+            loading="lazy"
           />
+        </div>
+        <div id="welcomeOverlay" class="welcome-overlay" aria-hidden="true">
+          <h1 class="welcome-text">Welcome Everyone</h1>
         </div>
       </section>
 
       <audio
         id="openingMusic"
         src="m1.mp3"
-        preload="auto"
-        autoplay
+        preload="none"
         muted
         playsinline
       ></audio>
+      <audio
+        id="clappingSound"
+        src="clapping.mp3"
+        preload="auto"
+      ></audio>
+      <audio
+        id="curtainOpenSound"
+        src="curtain-open.mp3"
+        preload="auto"
+      ></audio>
+      <audio
+        id="curtainCloseSound"
+        src="curtain-close.mp3"
+        preload="auto"
+      ></audio>
     </main>
 
-    <script src="script.js?v=cinematic20"></script>
+    <script src="script.js?v=cinematic22"></script>
   </body>
 </html>
