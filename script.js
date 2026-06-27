@@ -202,19 +202,28 @@ async function playOpeningMusic() {
       openingMusic.preload = "auto";
       openingMusic.load();
     }
-    await openingMusic.play();
-    musicStarted = true;
+    // Try to play unmuted at normal volume immediately (succeeds with browser flags)
     openingMusic.muted = false;
     openingMusic.volume = 0.78;
-  } catch {
-    musicStarted = false;
+    await openingMusic.play();
+    musicStarted = true;
+  } catch (err) {
+    console.warn("Unmuted autoplay blocked, falling back to muted playback:", err);
+    try {
+      // Fallback to muted autoplay
+      openingMusic.muted = true;
+      openingMusic.volume = 0;
+      await openingMusic.play();
+      musicStarted = true;
+    } catch (muteErr) {
+      console.error("Muted playback failed:", muteErr);
+      musicStarted = false;
+    }
   }
 }
 
 function forceOpeningMusic() {
   if (revealed || musicStarted) return;
-  openingMusic.muted = true;
-  openingMusic.volume = 0;
   playOpeningMusic();
 }
 
