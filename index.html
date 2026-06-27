@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nepali Panas Event Opening</title>
-    <link rel="stylesheet" href="styles.css?v=cinematic11" />
+    <title>Nyxen</title>
+    <link rel="stylesheet" href="styles.css?v=cinematic19" />
   </head>
   <body>
     <main class="experience" aria-live="polite">
@@ -13,7 +13,7 @@
           <div class="top-glow" aria-hidden="true"></div>
           <div class="heat-haze" aria-hidden="true"></div>
           <div class="ember-layer" id="emberLayer" aria-hidden="true"></div>
-          <div class="flame-stack is-igniting" aria-hidden="true">
+          <div class="flame-stack" aria-hidden="true">
             <span class="flame flame-outer"></span>
             <span class="flame flame-mid"></span>
             <span class="flame flame-core"></span>
@@ -23,23 +23,20 @@
         </div>
       </section>
 
-      <section class="event-screen" aria-label="Main event opening screen">
+      <section class="event-screen" aria-label="Opening visuals">
         <div class="event-aurora" aria-hidden="true"></div>
         <div class="curtain curtain-left" aria-hidden="true"></div>
         <div class="curtain curtain-right" aria-hidden="true"></div>
-        <article class="event-poster">
-          <div class="poster-light" aria-hidden="true"></div>
-          <div class="poster-image-wrap">
-            <img src="panas-main.png" alt="" />
-          </div>
-          <div class="poster-content">
-            <p class="poster-kicker">CAN presents</p>
-            <h1>Digital Literacy</h1>
-          </div>
-        </article>
+        <div class="closing-curtain closing-curtain-left" aria-hidden="true"></div>
+        <div class="closing-curtain closing-curtain-right" aria-hidden="true"></div>
+        <div class="full-visual">
+          <img class="sequence-image is-active" id="sequenceImage" src="can image 0.jpg" alt="CAN presentation visual" />
+        </div>
       </section>
+
+      <audio id="openingMusic" src="m1.mp3" preload="auto" autoplay muted playsinline></audio>
     </main>
 
-    <script src="script.js?v=cinematic11"></script>
+    <script src="script.js?v=cinematic19"></script>
   </body>
 </html>

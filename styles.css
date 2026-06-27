@@ -1,16 +1,10 @@
 :root {
   color-scheme: dark;
-  --fire-duration: 10000ms;
+  --fire-duration: 15000ms;
   --black: #000;
-  --gold: #d9b56c;
-  --flame-hot: #fff8cf;
-  --flame-warm: #ffb13d;
-  --flame-deep: #c83a0e;
-  --cyan: #39d6e6;
-  --green: #00c782;
-  --navy: #06151f;
-  --ink: #071014;
-  --text: #efffff;
+  --cream: #fff3df;
+  --orange: #ff7a1a;
+  --amber: #ffba62;
 }
 
 * {
@@ -25,9 +19,20 @@ body {
 body {
   margin: 0;
   overflow: hidden;
-  background: var(--black);
-  color: var(--text);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #000;
+  color: var(--cream);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+button {
+  font: inherit;
 }
 
 .experience {
@@ -48,8 +53,10 @@ body {
   display: grid;
   place-items: center;
   background: #000;
-  opacity: 1;
-  transition: opacity 1400ms ease, filter 1400ms ease, transform 1400ms ease;
+  transition:
+    opacity 1800ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 1800ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1800ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .experience.is-revealed .lighting-scene {
@@ -63,12 +70,12 @@ body {
   position: relative;
   display: grid;
   place-items: end center;
-  width: min(34rem, 86vw);
-  height: min(92vh, 49rem);
+  width: min(31rem, 86vw);
+  height: min(88vh, 45rem);
   padding-bottom: clamp(0.25rem, 2vh, 1rem);
   opacity: 0;
-  transform: translateY(7vh) scale(0.96);
-  animation: panasEntrance 1600ms cubic-bezier(0.2, 0.9, 0.2, 1) 180ms forwards;
+  transform: translateY(13vh) scale(0.91);
+  animation: panasEntrance 1700ms cubic-bezier(0.2, 0.9, 0.2, 1) 180ms forwards;
 }
 
 .panas-image {
@@ -76,13 +83,11 @@ body {
   z-index: 4;
   display: block;
   width: auto;
-  height: min(86vh, 45rem);
-  max-width: 88vw;
+  height: min(76vh, 39rem);
+  max-width: 86vw;
   object-fit: contain;
   object-position: center bottom;
-  filter:
-    drop-shadow(0 2.4rem 2.5rem rgba(0, 0, 0, 0.72))
-    drop-shadow(0 0 0.75rem rgba(217, 181, 108, 0.12));
+  filter: drop-shadow(0 2.4rem 2.5rem rgba(0, 0, 0, 0.72));
   transform-origin: 50% 92%;
   animation: subtleLampBreath 5200ms ease-in-out 2s infinite;
 }
@@ -99,43 +104,72 @@ body {
 
 .top-glow {
   z-index: 2;
-  top: clamp(1.8rem, 8.2vh, 4.2rem);
-  width: clamp(5.5rem, 18vw, 10.5rem);
+  top: clamp(2.4rem, 9vh, 5rem);
+  width: clamp(5.5rem, 17vw, 10rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background:
-    radial-gradient(circle, rgba(255, 228, 145, 0.54) 0 8%, rgba(255, 137, 36, 0.28) 30%, rgba(255, 92, 20, 0.08) 58%, transparent 72%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 228, 145, 0.58) 0 8%,
+    rgba(255, 137, 36, 0.3) 30%,
+    rgba(255, 92, 20, 0.08) 58%,
+    transparent 72%
+  );
   filter: blur(18px);
   opacity: 0;
   transform: translate(-50%, 1.8rem) scale(0.22);
-  animation: glowIgnite 2100ms ease-out 1200ms forwards, glowFlicker 1600ms ease-in-out 3300ms infinite alternate;
+  animation:
+    glowIgnite 2100ms ease-out 1200ms forwards,
+    glowFlicker 1600ms ease-in-out 3300ms infinite alternate;
 }
 
 .heat-haze {
   z-index: 5;
-  top: clamp(0.8rem, 5vh, 3rem);
-  width: clamp(7rem, 19vw, 11rem);
-  height: clamp(9rem, 24vh, 13rem);
+  top: clamp(1.6rem, 6vh, 3.8rem);
+  width: clamp(7rem, 18vw, 11rem);
+  height: clamp(9rem, 23vh, 13rem);
   border-radius: 48% 52% 42% 45%;
-  background:
-    radial-gradient(ellipse at 50% 68%, rgba(255, 255, 255, 0.1), transparent 62%),
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.055), transparent);
+  background: radial-gradient(
+    ellipse at 50% 68%,
+    rgba(255, 255, 255, 0.1),
+    transparent 62%
+  );
   filter: blur(10px);
   opacity: 0;
   mix-blend-mode: screen;
   transform: translateX(-50%);
-  animation: hazeOn 2400ms ease 1700ms forwards, hazeMove 2300ms ease-in-out 3200ms infinite alternate;
+  animation:
+    hazeOn 2400ms ease 1700ms forwards,
+    hazeMove 2300ms ease-in-out 3200ms infinite alternate;
 }
 
 .flame-stack {
   z-index: 6;
-  top: calc(clamp(0rem, 1vh, 0.8rem) - 1.95rem);
-  width: clamp(2.8rem, 8vw, 5rem);
-  height: clamp(4.4rem, 12vh, 6.8rem);
+  top: calc(clamp(0rem, 1vh, 0.8rem) - 1rem);
+  width: clamp(4rem, 9.2vw, 6.4rem);
+  height: clamp(8rem, 20vh, 12.6rem);
   opacity: 0;
   transform: translateX(-50%) translateY(2.8rem) scale(0.06);
-  filter: drop-shadow(0 0 1.2rem rgba(255, 116, 26, 0.7));
+  filter: drop-shadow(0 0 1.2rem rgba(255, 116, 26, 0.76));
   animation: flameIgnite 2300ms cubic-bezier(0.18, 0.9, 0.2, 1) 1200ms forwards;
+}
+
+.flame-stack::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.25rem;
+  width: 62%;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(255, 235, 166, 0.95),
+    rgba(255, 116, 26, 0.32) 58%,
+    transparent 72%
+  );
+  filter: blur(4px);
+  transform: translateX(-50%);
 }
 
 .flame {
@@ -143,36 +177,51 @@ body {
   left: 50%;
   bottom: 0;
   display: block;
-  border-radius: 58% 42% 48% 50%;
+  border-radius: 58% 42% 50% 50%;
   transform-origin: center bottom;
   mix-blend-mode: screen;
 }
 
 .flame-outer {
-  width: 78%;
-  height: 94%;
-  background:
-    radial-gradient(ellipse at 48% 74%, rgba(255, 234, 161, 0.9) 0 8%, rgba(255, 152, 43, 0.78) 28%, rgba(210, 55, 9, 0.5) 55%, transparent 76%);
-  filter: blur(2px);
+  width: 66%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 48% 80%,
+    rgba(255, 244, 190, 0.92) 0 6%,
+    rgba(255, 152, 43, 0.84) 24%,
+    rgba(204, 50, 8, 0.48) 56%,
+    transparent 82%
+  );
+  filter: blur(2.4px);
   transform: translateX(-50%) rotate(4deg);
   animation: flameFlickerOuter 540ms ease-in-out infinite alternate;
 }
 
 .flame-mid {
-  width: 54%;
-  height: 76%;
-  background:
-    radial-gradient(ellipse at 50% 78%, rgba(255, 252, 220, 0.95) 0 15%, rgba(255, 188, 72, 0.88) 36%, rgba(255, 94, 18, 0.32) 65%, transparent 82%);
+  width: 42%;
+  height: 86%;
+  background: radial-gradient(
+    ellipse at 50% 84%,
+    rgba(255, 252, 220, 0.96) 0 13%,
+    rgba(255, 188, 72, 0.9) 32%,
+    rgba(255, 94, 18, 0.28) 66%,
+    transparent 86%
+  );
   filter: blur(1px);
   transform: translateX(-50%) rotate(-5deg);
   animation: flameFlickerMid 430ms ease-in-out infinite alternate;
 }
 
 .flame-core {
-  width: 29%;
-  height: 52%;
-  background:
-    radial-gradient(ellipse at 52% 82%, #fff 0 20%, rgba(255, 245, 171, 0.95) 45%, rgba(255, 197, 79, 0.18) 78%, transparent 90%);
+  width: 22%;
+  height: 64%;
+  background: radial-gradient(
+    ellipse at 52% 82%,
+    #fff 0 20%,
+    rgba(255, 245, 171, 0.95) 45%,
+    rgba(255, 197, 79, 0.18) 78%,
+    transparent 90%
+  );
   filter: blur(0.6px);
   transform: translateX(-50%) rotate(3deg);
   animation: flameFlickerCore 360ms ease-in-out infinite alternate;
@@ -180,12 +229,14 @@ body {
 
 .ignition-spark {
   z-index: 7;
-  top: clamp(1.2rem, 5vh, 3rem);
+  top: clamp(2.1rem, 6vh, 4rem);
   width: 0.5rem;
   aspect-ratio: 1;
   border-radius: 50%;
   background: #fff4a5;
-  box-shadow: 0 0 0.8rem #ffd15a, 0 0 2rem rgba(255, 89, 18, 0.86);
+  box-shadow:
+    0 0 0.8rem #ffd15a,
+    0 0 2rem rgba(255, 89, 18, 0.86);
   opacity: 0;
   transform: translate(-50%, 0) scale(0.25);
   animation: ignitionSpark 1600ms ease-out 650ms forwards;
@@ -193,7 +244,7 @@ body {
 
 .ember-layer {
   z-index: 7;
-  top: clamp(1rem, 6vh, 3rem);
+  top: clamp(1.8rem, 7vh, 4rem);
   width: clamp(10rem, 30vw, 17rem);
   height: clamp(13rem, 34vh, 19rem);
   transform: translateX(-50%);
@@ -213,13 +264,20 @@ body {
 }
 
 .event-screen {
-  display: grid;
-  place-items: center;
-  padding: clamp(1rem, 3vw, 2.4rem);
+  display: block;
+  padding: 0;
   background:
-    radial-gradient(circle at 20% 16%, rgba(57, 214, 230, 0.24), transparent 24rem),
-    radial-gradient(circle at 82% 72%, rgba(0, 199, 130, 0.28), transparent 27rem),
-    linear-gradient(135deg, #031018, #061b27 52%, #02100e);
+    radial-gradient(
+      circle at 20% 16%,
+      rgba(255, 177, 90, 0.26),
+      transparent 24rem
+    ),
+    radial-gradient(
+      circle at 82% 72%,
+      rgba(255, 92, 18, 0.26),
+      transparent 27rem
+    ),
+    linear-gradient(135deg, #180a03, #2b1306 52%, #120806);
   opacity: 0;
   pointer-events: none;
   transition: opacity 1100ms ease 450ms;
@@ -235,8 +293,8 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 74px 74px;
   mask-image: radial-gradient(circle at center, black, transparent 78%);
 }
@@ -244,8 +302,14 @@ body {
 .event-aurora {
   position: absolute;
   inset: -22%;
-  background:
-    conic-gradient(from 210deg, transparent, rgba(57, 214, 230, 0.15), transparent, rgba(0, 199, 130, 0.16), transparent);
+  background: conic-gradient(
+    from 210deg,
+    transparent,
+    rgba(255, 177, 90, 0.16),
+    transparent,
+    rgba(255, 107, 26, 0.18),
+    transparent
+  );
   filter: blur(36px);
   opacity: 0.8;
   animation: auroraDrift 12s linear infinite;
@@ -255,12 +319,24 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  z-index: 4;
+  z-index: 6;
   width: 52%;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.09), transparent 12%, rgba(255, 255, 255, 0.04) 32%, transparent 54%),
-    repeating-linear-gradient(90deg, rgba(9, 61, 76, 0.96) 0 2.4rem, rgba(3, 22, 30, 0.98) 2.4rem 4.8rem);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.58), 0 0 3rem rgba(0, 199, 130, 0.12);
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.1),
+      transparent 12%,
+      rgba(255, 255, 255, 0.045) 32%,
+      transparent 54%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(95, 35, 9, 0.98) 0 2.4rem,
+      rgba(33, 12, 4, 0.98) 2.4rem 4.8rem
+    );
+  box-shadow:
+    inset 0 0 5rem rgba(0, 0, 0, 0.58),
+    0 0 3rem rgba(255, 107, 26, 0.14);
 }
 
 .curtain-left {
@@ -274,127 +350,84 @@ body {
 }
 
 .experience.is-revealed .curtain-left {
-  animation: curtainOpenLeft 1800ms cubic-bezier(0.72, 0, 0.16, 1) 260ms forwards;
+  animation: curtainOpenLeft 3300ms cubic-bezier(0.72, 0, 0.16, 1) 900ms
+    forwards;
 }
 
 .experience.is-revealed .curtain-right {
-  animation: curtainOpenRight 1800ms cubic-bezier(0.72, 0, 0.16, 1) 260ms forwards;
+  animation: curtainOpenRight 3300ms cubic-bezier(0.72, 0, 0.16, 1) 900ms
+    forwards;
 }
 
-.event-poster {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(16rem, 0.82fr) minmax(18rem, 1.18fr);
-  align-items: center;
-  width: min(980px, calc(100vw - 32px));
-  min-height: min(640px, calc(100vh - 44px));
-  overflow: hidden;
-  border: 1px solid rgba(159, 255, 232, 0.28);
-  border-radius: 8px;
-  background:
-    linear-gradient(145deg, rgba(9, 44, 60, 0.9), rgba(3, 18, 25, 0.96) 48%, rgba(7, 58, 47, 0.86)),
-    radial-gradient(circle at 23% 47%, rgba(57, 214, 230, 0.22), transparent 19rem);
-  box-shadow: 0 2rem 7rem rgba(0, 0, 0, 0.58), 0 0 3rem rgba(0, 199, 130, 0.16);
-  opacity: 0;
-  transform: translateY(4rem) scale(0.86);
-}
-
-.experience.is-revealed .event-poster {
-  animation: posterReveal 1300ms cubic-bezier(0.18, 1, 0.2, 1) 1500ms forwards;
-}
-
-.event-poster::before {
-  content: "";
-  position: absolute;
-  inset: 1rem;
-  border: 1px solid rgba(190, 255, 238, 0.2);
-  border-radius: 6px;
-  pointer-events: none;
-}
-
-.poster-light {
+.full-visual {
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 0 34%, rgba(255, 255, 255, 0.28) 46%, transparent 58% 100%);
-  transform: translateX(-120%);
-}
-
-.experience.is-revealed .poster-light {
-  animation: posterSheen 1700ms ease 2200ms forwards;
-}
-
-.poster-image-wrap {
-  position: relative;
+  z-index: 2;
   display: grid;
-  place-items: end center;
-  height: 100%;
-  min-height: 26rem;
-  background: radial-gradient(circle at 50% 58%, rgba(57, 214, 230, 0.16), transparent 58%);
-}
-
-.poster-image-wrap img {
-  width: auto;
-  height: min(72vh, 34rem);
-  max-width: 82%;
-  object-fit: contain;
-  filter: drop-shadow(0 2rem 2rem rgba(0, 0, 0, 0.56)) drop-shadow(0 0 1.4rem rgba(0, 199, 130, 0.22));
-}
-
-.poster-content {
-  position: relative;
-  z-index: 1;
-  padding: clamp(2rem, 5vw, 4.8rem);
-}
-
-.poster-kicker {
-  margin: 0 0 0.8rem;
-  color: #7ef5e1;
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.poster-content h1 {
-  margin: 0 0 1rem;
-  font-size: clamp(3rem, 7vw, 6.4rem);
-  line-height: 0.92;
-  letter-spacing: 0;
-}
-
-.poster-copy {
-  max-width: 30rem;
-  margin: 0;
-  color: rgba(239, 255, 255, 0.78);
-  font-size: clamp(1rem, 1.6vw, 1.18rem);
-  line-height: 1.65;
-}
-
-.poster-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.72rem;
-  margin-top: 2rem;
-}
-
-.poster-meta span {
-  display: inline-grid;
   place-items: center;
-  min-height: 2.2rem;
-  padding: 0 0.92rem;
-  border: 1px solid rgba(126, 245, 225, 0.34);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #eafffb;
-  font-size: 0.88rem;
-  font-weight: 800;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(1rem) scale(0.96);
+}
+
+.experience.is-revealed .full-visual {
+  animation: visualReveal 1300ms cubic-bezier(0.18, 1, 0.2, 1) 3600ms forwards;
+}
+
+.sequence-image {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateY(1rem) scale(0.92);
+  filter: drop-shadow(0 2rem 2rem rgba(0, 0, 0, 0.58))
+    drop-shadow(0 0 1.6rem rgba(255, 138, 45, 0.2));
+  transition:
+    opacity 950ms ease,
+    transform 1050ms cubic-bezier(0.18, 1, 0.2, 1),
+    filter 950ms ease;
+}
+
+.sequence-image.is-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.closing-curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 9;
+  width: 50%;
+  pointer-events: none;
+  opacity: 1;
+  background:
+    linear-gradient(90deg, rgba(255, 233, 206, 0.08), transparent 30%),
+    linear-gradient(135deg, rgba(92, 34, 9, 0.98), rgba(25, 9, 4, 0.98));
+}
+
+.closing-curtain-left {
+  left: 0;
+  transform: translateX(-102%);
+}
+
+.closing-curtain-right {
+  right: 0;
+  transform: translateX(102%);
+}
+
+.experience.is-closing .closing-curtain-left {
+  animation: closeCurtainLeft 2200ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+
+.experience.is-closing .closing-curtain-right {
+  animation: closeCurtainRight 2200ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
 }
 
 @keyframes panasEntrance {
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(6vh) scale(1);
   }
 }
 
@@ -520,14 +553,26 @@ body {
   }
 }
 
-@keyframes posterReveal {
+@keyframes curtainOpenLeft {
+  to {
+    transform: translateX(-102%) skewX(-4deg);
+  }
+}
+
+@keyframes curtainOpenRight {
+  to {
+    transform: translateX(102%) skewX(4deg);
+  }
+}
+
+@keyframes visualReveal {
   0% {
     opacity: 0;
-    transform: translateY(4rem) scale(0.86);
+    transform: translateY(1rem) scale(0.96);
   }
   70% {
     opacity: 1;
-    transform: translateY(-0.45rem) scale(1.012);
+    transform: translateY(-0.15rem) scale(1.01);
   }
   100% {
     opacity: 1;
@@ -535,9 +580,15 @@ body {
   }
 }
 
-@keyframes posterSheen {
+@keyframes closeCurtainLeft {
   to {
-    transform: translateX(120%);
+    transform: translateX(0);
+  }
+}
+
+@keyframes closeCurtainRight {
+  to {
+    transform: translateX(0);
   }
 }
 
@@ -551,65 +602,27 @@ body {
   }
 
   .panas-stage {
-    width: min(24rem, 96vw);
-    height: 94svh;
+    width: min(23rem, 96vw);
+    height: 88svh;
   }
 
   .panas-image {
-    height: min(82svh, 40rem);
+    height: min(72svh, 35rem);
   }
 
   .flame-stack {
-    top: calc(clamp(0rem, 1vh, 0.6rem) - 1.55rem);
+    top: calc(clamp(0rem, 1vh, 0.6rem) + 1rem);
   }
 
-  .top-glow {
-    top: clamp(2.8rem, 10vh, 5.2rem);
-  }
-
-  .heat-haze,
-  .ember-layer {
-    top: clamp(2rem, 8vh, 4rem);
-  }
-
-  .event-poster {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .poster-image-wrap {
-    min-height: 17rem;
-  }
-
-  .poster-image-wrap img {
-    height: min(34vh, 18rem);
-  }
-
-  .poster-content {
-    padding-top: 0.5rem;
-    text-align: center;
-  }
-
-  .poster-meta {
-    justify-content: center;
+  .sequence-image {
+    width: 100vw;
+    height: 100svh;
   }
 }
 
 @media (max-width: 480px) {
   .flame-stack {
-    top: calc(clamp(0rem, 1vh, 0.6rem) + 4.35rem);
-  }
-}
-
-@keyframes curtainOpenLeft {
-  to {
-    transform: translateX(-102%) skewX(-4deg);
-  }
-}
-
-@keyframes curtainOpenRight {
-  to {
-    transform: translateX(102%) skewX(4deg);
+    top: calc(clamp(0rem, 1vh, 0.6rem) + 5.6rem);
   }
 }
 
