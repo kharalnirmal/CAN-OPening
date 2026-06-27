@@ -27,6 +27,8 @@ let imageTimer = 0;
 let musicFadeTimer = 0;
 let audioContext;
 let musicStarted = false;
+let audioUnlockTimer = 0;
+let kioskRetryTimer = 0;
 
 document.documentElement.style.setProperty(
   "--fire-duration",
@@ -36,10 +38,14 @@ document.documentElement.style.setProperty(
 window.addEventListener("load", () => {
   beginEmbers();
   forceOpeningMusic();
+  startKioskAutoplay();
   revealTimer = window.setTimeout(revealEventScreen, getFireDuration());
 });
 
-document.addEventListener("DOMContentLoaded", forceOpeningMusic);
+document.addEventListener("DOMContentLoaded", () => {
+  forceOpeningMusic();
+  startKioskAutoplay();
+});
 openingMusic.addEventListener("canplaythrough", forceOpeningMusic, {
   once: true,
 });
@@ -51,8 +57,75 @@ openingMusic.addEventListener("canplaythrough", forceOpeningMusic, {
 window.addEventListener("pageshow", () => {
   if (!revealed && openingMusic.paused) {
     playOpeningMusic();
+    startKioskAutoplay();
   }
 });
+
+function simulateUserGesture() {
+  const target = document.body;
+  const eventInit = {
+    bubbles: true,
+    cancelable: true,
+    view: window,
+  };
+
+  if (typeof TouchEvent !== "undefined") {
+    try {
+      target.dispatchEvent(new TouchEvent("touchstart", eventInit));
+      target.dispatchEvent(new TouchEvent("touchend", eventInit));
+    } catch {
+      // Some browsers reject synthetic TouchEvent construction.
+    }
+  }
+
+  if (typeof PointerEvent !== "undefined") {
+    target.dispatchEvent(
+      new PointerEvent("pointerdown", {
+        ...eventInit,
+        pointerId: 1,
+        pointerType: "touch",
+        isPrimary: true,
+      }),
+    );
+    target.dispatchEvent(
+      new PointerEvent("pointerup", {
+        ...eventInit,
+        pointerId: 1,
+        pointerType: "touch",
+        isPrimary: true,
+      }),
+    );
+  }
+
+  target.dispatchEvent(
+    new MouseEvent("click", {
+      ...eventInit,
+      detail: 1,
+      buttons: 1,
+    }),
+  );
+
+  unlockOpeningMusic();
+}
+
+function startKioskAutoplay() {
+  simulateUserGesture();
+
+  window.clearInterval(kioskRetryTimer);
+  let attempts = 0;
+  kioskRetryTimer = window.setInterval(() => {
+    attempts += 1;
+    if (revealed || attempts > 10) {
+      window.clearInterval(kioskRetryTimer);
+      return;
+    }
+    if (openingMusic.paused || openingMusic.muted || openingMusic.volume < 0.05) {
+      simulateUserGesture();
+    } else {
+      window.clearInterval(kioskRetryTimer);
+    }
+  }, 450);
+}
 
 function getFireDuration() {
   const override = Number(params.get("duration"));
@@ -93,10 +166,22 @@ async function playOpeningMusic() {
     window.setTimeout(() => {
       openingMusic.muted = false;
       fadeAudio(openingMusic, 0.78, 2200);
+      scheduleAudioUnlockCheck();
     }, 180);
   } catch {
     musicStarted = false;
+    startKioskAutoplay();
   }
+}
+
+function scheduleAudioUnlockCheck() {
+  window.clearTimeout(audioUnlockTimer);
+  audioUnlockTimer = window.setTimeout(() => {
+    if (revealed) return;
+    if (openingMusic.paused || openingMusic.muted) {
+      startKioskAutoplay();
+    }
+  }, 500);
 }
 
 function forceOpeningMusic() {
@@ -109,8 +194,9 @@ function forceOpeningMusic() {
 
 function unlockOpeningMusic() {
   if (revealed) return;
+  getAudioContext();
   openingMusic.muted = false;
-  if (openingMusic.paused) {
+  if (openingMusic.paused || !musicStarted) {
     musicStarted = false;
     playOpeningMusic();
   } else if (openingMusic.volume < 0.7) {
